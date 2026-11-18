@@ -85,14 +85,27 @@ def print_recommendations(name: str, user_prefs: dict, songs: list, k: int = 5) 
 
 def print_ai_result(result: dict) -> None:
     """Print the parsed profile, retrieved songs and the AI's write-up."""
-    profile = result["profile"]
-    acoustic = "likes acoustic" if profile["likes_acoustic"] else "prefers non-acoustic"
-
     print()
     print("=" * 60)
-    print(f"  Request: {result['request']}")
+    request = result["request"]
+    if len(request) > 80:
+        request = f"{request[:80]}... ({len(request)} characters)"
+    print(f"  Request: {request!r}")
     print("=" * 60)
-    print(f"\n  Parsed profile: {profile['favorite_genre']} | {profile['favorite_mood']} | "
+
+    if result["status"] == "rejected":
+        print(f"\n  [Blocked by input guardrail] {result['message']}\n")
+        return
+
+    if result["mode"] == "fallback":
+        print("\n  [Fallback mode: AI unavailable, using the rule-based recommender]")
+        print(f"  Reason: {result['fallback_reason']}")
+
+    profile = result["profile"]
+    acoustic = "likes acoustic" if profile["likes_acoustic"] else "prefers non-acoustic"
+    label = "Parsed profile" if result["mode"] == "ai" else "Keyword profile"
+    print(f"\n  {label}: {profile['favorite_genre'] or 'any genre'} | "
+          f"{profile['favorite_mood'] or 'any mood'} | "
           f"energy {profile['target_energy']:.2f} | {acoustic}")
 
     print(f"\n  Retrieved songs (top {len(result['retrieved'])} from the scorer):")
@@ -100,9 +113,14 @@ def print_ai_result(result: dict) -> None:
         print(f"    {rank}. [{song['id']}] {song['title']} - {song['artist']} "
               f"(score {song['score']:.2f} / {MAX_SCORE:.2f})")
 
-    print("\n  AI recommendations:\n")
+    heading = "AI recommendations" if result["mode"] == "ai" else "Rule-based recommendations"
+    print(f"\n  {heading}:\n")
     for line in result["ai_text"].splitlines():
         print(f"    {line}")
+
+    if result["grounding_flags"]:
+        print(f"\n  [Grounding check removed songs that were not retrieved: "
+              f"{', '.join(result['grounding_flags'])}]")
     print()
 
 
