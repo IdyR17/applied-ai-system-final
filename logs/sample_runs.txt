@@ -1,0 +1,91 @@
+$ python -m src.main "upbeat pop for a party"
+Loaded 20 songs from data/songs.csv
+
+============================================================
+  Request: upbeat pop for a party
+============================================================
+
+  Parsed profile: pop | festive | energy 0.85 | prefers non-acoustic
+
+  Retrieved songs (top 5 from the scorer):
+    1. [1] Sunrise City - Neon Echo (score 3.97 / 5.00)
+    2. [5] Gym Hero - Max Pulse (score 3.80 / 5.00)
+    3. [20] Fiesta de Noche - Los Brillantes (score 3.00 / 5.00)
+    4. [3] Storm Runner - Voltline (score 1.88 / 5.00)
+    5. [11] Concrete Crown - Rhyme Theory (score 1.85 / 5.00)
+
+  AI recommendations:
+
+    Here are your party picks, in order:
+    
+    1. **Sunrise City** by Neon Echo: This is the best fit for your request. It's a happy pop track with high energy (0.82), right around your target, and a polished, non-acoustic sound that's great for getting a party started.
+    
+    2. **Gym Hero** by Max Pulse: Another strong pop match, with even more energy (0.93) and a non-acoustic punch. Its mood is more intense than cheerful, so it works best when the party is in full swing.
+    
+    3. **Fiesta de Noche** by Los Brillantes: It's Latin rather than pop, but its festive mood and near-perfect energy level (0.84) make it a natural fit for a party dance floor.
+    
+    4. **Storm Runner** by Voltline: This is a weaker match. It's high-energy (0.91) and non-acoustic, but it's an intense rock track rather than upbeat pop, so use it sparingly if your crowd wants pop vibes.
+    
+    5. **Concrete Crown** by Rhyme Theory: Also a weaker match. It's hip-hop with a confident mood and solid energy (0.78), but it doesn't match the pop genre or the upbeat party mood as closely as the top picks.
+
+
+$ python -m src.main "calm acoustic music for studying"
+Loaded 20 songs from data/songs.csv
+
+============================================================
+  Request: calm acoustic music for studying
+============================================================
+
+  Parsed profile: lofi | focused | energy 0.25 | likes acoustic
+
+  Retrieved songs (top 5 from the scorer):
+    1. [9] Focus Flow - LoRoom (score 4.41 / 5.00)
+    2. [4] Library Rain - Paper Lanterns (score 3.70 / 5.00)
+    3. [2] Midnight Coding - LoRoom (score 3.29 / 5.00)
+    4. [6] Spacewalk Thoughts - Orbit Bloom (score 1.97 / 5.00)
+    5. [17] Empty Platform - The Grey Hours (score 1.92 / 5.00)
+
+  AI recommendations:
+
+    Here are some picks for calm, acoustic study sessions:
+    
+    1. **Focus Flow** by LoRoom: This is the strongest match. It's a lofi track with a focused mood and an acoustic sound, ideal for concentrating. Its energy (0.40) is a bit higher than your calm target, but it still stays mellow.
+    
+    2. **Library Rain** by Paper Lanterns: A chill lofi track with an acoustic feel and low energy (0.35), so it sits close to the calm vibe you're after. It's great for keeping the background soft while you work.
+    
+    3. **Midnight Coding** by LoRoom: Another chill, acoustic lofi track that suits studying well. It's slightly more energetic (0.42) than the others, so it's a little less calm.
+    
+    4. **Spacewalk Thoughts** by Orbit Bloom: At 0.28 energy, this ambient track is one of the calmest on the list, and it has an acoustic sound. It isn't lofi or specifically study-focused, so it's a looser match, but it's a nice option if you want something very quiet and spacious.
+    
+    5. **Empty Platform** by The Grey Hours: This is a weak match. It's low-energy (0.30) and acoustic, but it's a blues track with a sad mood, which may feel heavier than ideal for studying. Try it only if you like a more melancholy backdrop.
+
+
+$ python -m src.main "angry music for lifting weights"
+Loaded 20 songs from data/songs.csv
+
+============================================================
+  Request: angry music for lifting weights
+============================================================
+
+  Parsed profile: metal | angry | energy 0.95 | prefers non-acoustic
+
+  Retrieved songs (top 5 from the scorer):
+    1. [16] Iron Requiem - Grave Signal (score 4.99 / 5.00)
+    2. [14] Afterglow Rush - Pulsewave (score 2.00 / 5.00)
+    3. [5] Gym Hero - Max Pulse (score 1.99 / 5.00)
+    4. [3] Storm Runner - Voltline (score 1.95 / 5.00)
+    5. [20] Fiesta de Noche - Los Brillantes (score 1.65 / 5.00)
+
+  AI recommendations:
+
+    1. **Iron Requiem** by Grave Signal: This is the best fit for your workout. It's angry metal at near-maximum energy (0.97), exactly the aggressive fuel you want under a heavy bar.
+    
+    2. **Afterglow Rush** by Pulsewave: Its energy is right on target (0.95) and the sound is fully electronic, so it'll keep you pumped. But the mood is euphoric rather than angry, so it's more of a hype track than a rage track.
+    
+    3. **Gym Hero** by Max Pulse: It's high-energy (0.93) and intense, which suits lifting well. As a pop track, though, it doesn't deliver the anger or heaviness you asked for.
+    
+    4. **Storm Runner** by Voltline: This intense rock song has strong energy (0.91) and a driving electric sound, a decent pick for pushing through sets. It's still not truly angry, so treat it as a secondary option.
+    
+    5. **Fiesta de Noche** by Los Brillantes: Honestly, this is a weak match. It has solid energy (0.84), but its festive Latin vibe is far from the angry mood you're after.
+
+

@@ -1,13 +1,11 @@
 """
-Command line runner for the Music Recommender Simulation.
+Command line runner for the AI Music Assistant.
 
-This file helps you quickly run and test your recommender.
-
-You will implement the functions in recommender.py:
-- load_songs
-- score_song
-- recommend_songs
+  python -m src.main "chill music for studying"   -> AI + RAG pipeline
+  python -m src.main                              -> original Module 3 profiles
 """
+
+import sys
 
 from src.recommender import load_songs, recommend_songs, MAX_SCORE
 
@@ -85,11 +83,44 @@ def print_recommendations(name: str, user_prefs: dict, songs: list, k: int = 5) 
     print()
 
 
-def main() -> None:
+def print_ai_result(result: dict) -> None:
+    """Print the parsed profile, retrieved songs and the AI's write-up."""
+    profile = result["profile"]
+    acoustic = "likes acoustic" if profile["likes_acoustic"] else "prefers non-acoustic"
+
+    print()
+    print("=" * 60)
+    print(f"  Request: {result['request']}")
+    print("=" * 60)
+    print(f"\n  Parsed profile: {profile['favorite_genre']} | {profile['favorite_mood']} | "
+          f"energy {profile['target_energy']:.2f} | {acoustic}")
+
+    print(f"\n  Retrieved songs (top {len(result['retrieved'])} from the scorer):")
+    for rank, song in enumerate(result["retrieved"], start=1):
+        print(f"    {rank}. [{song['id']}] {song['title']} - {song['artist']} "
+              f"(score {song['score']:.2f} / {MAX_SCORE:.2f})")
+
+    print("\n  AI recommendations:\n")
+    for line in result["ai_text"].splitlines():
+        print(f"    {line}")
+    print()
+
+
+def run_profiles() -> None:
+    """Original Module 3 behavior: run the hand-written taste profiles."""
     songs = load_songs("data/songs.csv")
 
     for name, user_prefs in {**PROFILES, **EDGE_CASE_PROFILES}.items():
         print_recommendations(name, user_prefs, songs)
+
+
+def main() -> None:
+    if len(sys.argv) > 1:
+        from src.ai_assistant import recommend
+
+        print_ai_result(recommend(" ".join(sys.argv[1:])))
+    else:
+        run_profiles()
 
 
 if __name__ == "__main__":
