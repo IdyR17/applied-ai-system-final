@@ -157,7 +157,8 @@ def keyword_profile(text: str, genres: List[str], moods: List[str]) -> Dict:
     else:
         energy = 0.50
 
-    likes_acoustic = "acoustic" in words or energy <= 0.30
+    # Only count acoustic as a preference if the user actually asked for it.
+    likes_acoustic = "acoustic" in words
     return {
         "favorite_genre": genre,
         "favorite_mood": mood,

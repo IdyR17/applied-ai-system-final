@@ -192,6 +192,15 @@ def test_recommend_falls_back_when_llm_fails(monkeypatch):
         assert song["title"] in result["ai_text"]
 
 
+def test_keyword_profile_only_likes_acoustic_when_asked():
+    genres, moods = ["lofi", "pop"], ["chill", "happy"]
+    calm = assistant.keyword_profile("calm lofi for studying", genres, moods)
+    acoustic = assistant.keyword_profile("calm acoustic lofi", genres, moods)
+    assert calm["target_energy"] == 0.30
+    assert calm["likes_acoustic"] is False
+    assert acoustic["likes_acoustic"] is True
+
+
 def test_recommend_retries_once_then_falls_back_on_bad_profile(monkeypatch):
     calls = []
 
