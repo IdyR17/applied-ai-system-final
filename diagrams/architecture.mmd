@@ -1,5 +1,5 @@
 flowchart TD
-    U[User request<br/>python -m src.main] --> G1{Input guardrail<br/>empty / over 300 chars /<br/>off-topic / prompt injection}
+    U[User request<br/>command line or Streamlit page] --> G1{Input guardrail<br/>empty / over 300 chars /<br/>off-topic / prompt injection}
     G1 -- rejected --> R1[Friendly error message]
     G1 -- ok --> P[AI: parse request into profile<br/>genre + mood chosen from songs.csv values]
     P --> G2{Profile check<br/>valid JSON, genre/mood in catalog,<br/>energy clamped 0-1}

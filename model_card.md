@@ -497,8 +497,9 @@ I also have 37 unit tests that run without the API. All of them pass.
 | 3 | Also block prompt-injection phrases in the input check | Accepted | Gives the Misuse section a real, tested defense |
 | 3 | Fix the genre guess when no genre is named | Rejected | Kept it as an honest, explained eval failure |
 | 4 | Accept several reasonable genre/mood values per eval case instead of exactly one | Accepted | Avoids failing cases where the AI's choice is defensible |
+| Final review | Skip a Streamlit page and show saved output on a slide instead | Rejected | I wanted to present the system in a browser, so I added a small page (`app.py`) that calls the same `recommend()` function as the command line |
 
-**A suggestion I accepted:** the AI's design used my Module 3 scorer as the retriever and didn't add a vector database or a web app. I agreed because with only 20 songs, embeddings wouldn't find better matches, and my scorer already explains every score. Those explanations became the facts the AI writes from, which makes its answers checkable. It reused everything I built in Module 3 instead of replacing it.
+**A suggestion I accepted:** the AI's design used my Module 3 scorer as the retriever and didn't add a vector database or a web app. I agreed because with only 20 songs, embeddings wouldn't find better matches, and my scorer already explains every score. Those explanations became the facts the AI writes from, which makes its answers checkable. It reused everything I built in Module 3 instead of replacing it. (At the end I did add a small Streamlit page for presenting. It is only a front end over the same pipeline.)
 
 **A suggestion I changed:** the AI's keyword fallback parser also assumed that any calm request meant the user likes acoustic music. I kept the parser but changed that rule, so it only counts acoustic as a preference if the user actually says "acoustic". I didn't want the system assuming a preference I never stated. The trade-off, which I found by re-running the fallback, is that the profile only has true/false, so the fallback now leans slightly toward non-acoustic songs instead.
 

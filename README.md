@@ -25,7 +25,7 @@ If the API fails or the key is missing, a **keyword parser** builds the profile 
 
 ```mermaid
 flowchart TD
-    U[User request<br/>python -m src.main] --> G1{Input guardrail<br/>empty / over 300 chars /<br/>off-topic / prompt injection}
+    U[User request<br/>command line or Streamlit page] --> G1{Input guardrail<br/>empty / over 300 chars /<br/>off-topic / prompt injection}
     G1 -- rejected --> R1[Friendly error message]
     G1 -- ok --> P[AI: parse request into profile<br/>genre + mood chosen from songs.csv values]
     P --> G2{Profile check<br/>valid JSON, genre/mood in catalog,<br/>energy clamped 0-1}
@@ -77,6 +77,7 @@ flowchart TD
 
    ```bash
    python -m src.main "your request"     # AI assistant
+   streamlit run app.py                  # the same assistant in the browser
    python -m src.main                    # original Module 3 profiles, no AI
    python eval_harness.py                # evaluation (calls the API)
    pytest                                # unit tests (no API needed)
@@ -298,6 +299,7 @@ $ pytest
 - **RAG over my own scorer instead of a vector database.** With only 20 songs, embeddings and a vector store would add complexity without better results. My scorer is fast, deterministic, and explains every score, and those explanations become the facts the AI writes from. That makes the AI's output checkable.
 - **AI on both sides of the retriever.** The AI's job is the language part: understanding a request and writing a friendly answer. The ranking stays in code I can test. Restricting genre and mood to catalog values fixes my Module 3 "chill vs relaxed" problem, because the AI maps the user's words onto moods the data actually has.
 - **Bold titles for grounding.** The AI must put every title in `**bold**`, so the grounding check can find every song it mentions, including made-up ones, and remove anything not retrieved.
+- **One pipeline, two front ends.** The command line and the Streamlit page (`app.py`) both call the same `recommend()` function, so the guardrails, fallback and logging behave the same in both. The page only draws the result: the profile, the retrieved songs with their scores, and the write-up.
 - **Fallback instead of failure.** If the API is down, a keyword parser plus the original scorer still gives an answer, clearly labeled.
 - **Trade-offs:** The system is only as good as a 20-song catalog. Most genres have one song, so after the first match the list fills with weak picks. Every request costs two API calls, and the AI's mapping is a judgment call I can't fully control (it read "party" as *festive* rather than *happy*). The keyword fallback is much cruder than the AI, and because the profile has only true/false for acoustic, it can't express "no preference".
 
