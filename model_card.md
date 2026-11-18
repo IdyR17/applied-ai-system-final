@@ -398,13 +398,11 @@ I'd also keep the energy target between 0 and 1, so a typo like 1.5 doesn't brea
 
 ## 9. Personal Reflection  
 
-A few sentences about your experience.  
+The biggest thing I learned is that a recommender is just a set of choices about what counts. Every score TuneJudge gives comes from four rules and the weights I picked for them. Changing one number, like doubling energy, changed who got good recommendations and who didn't. There's no "correct" setting, only trade-offs. When I made the list better for the calm metal fan, the sad listener lost the only sad song.
 
-Prompts:  
+What surprised me was how small details had big effects. A capital "P" in "Pop" pushed the best song down to #2 until I fixed it. And Gym Hero, one loud workout song, ended up in 5 of my 7 top-5 lists, just because it's labeled pop and has high energy. The system sorts by the label on the song more than by how it actually feels.
 
-- What you learned about recommender systems  
-- Something unexpected or interesting you discovered  
-- How this changed the way you think about music recommendation apps  
+This changed how I think about apps like Spotify. When an app keeps showing me the same kind of song, I now think about what it's measuring and what it's ignoring, not just whether it "knows" my taste. With only 20 songs, I could see every reason behind every pick. Real apps have millions of songs and much more data, but the same problem is there: whatever the system doesn't measure, it can't recommend well.
 
 ---
 
