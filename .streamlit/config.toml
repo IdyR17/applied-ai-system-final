@@ -1,0 +1,8 @@
+# Look and feel for the Streamlit page (streamlit run app.py)
+[theme]
+base = "dark"
+primaryColor = "#FF8A5B"
+backgroundColor = "#17152B"
+secondaryBackgroundColor = "#24213F"
+textColor = "#F5F1E8"
+font = "sans serif"
