@@ -1,16 +1,16 @@
 import csv
 import math
-from typing import List, Dict, Tuple, Optional
+from dataclasses import asdict, dataclass
+from typing import List, Dict, Tuple
 
 # Scoring weights
-# (Tried genre 1.0 / energy 3.0 as an experiment, see README "Experiments You Tried")
+# (Tried genre 1.0 / energy 3.0 as an experiment, see "Weight experiment" in model_card.md)
 GENRE_WEIGHT = 2.0
 MOOD_WEIGHT = 1.0
 ENERGY_WEIGHT = 1.5
 ACOUSTIC_WEIGHT = 0.5
 ENERGY_SIGMA = 0.15
 MAX_SCORE = GENRE_WEIGHT + MOOD_WEIGHT + ENERGY_WEIGHT + ACOUSTIC_WEIGHT
-from dataclasses import dataclass
 
 @dataclass
 class Song:
@@ -42,19 +42,23 @@ class UserProfile:
 
 class Recommender:
     """
-    OOP implementation of the recommendation logic.
+    OOP wrapper around the same scoring logic as recommend_songs.
     Required by tests/test_recommender.py
     """
     def __init__(self, songs: List[Song]):
         self.songs = songs
 
     def recommend(self, user: UserProfile, k: int = 5) -> List[Song]:
-        # TODO: Implement recommendation logic
-        return self.songs[:k]
+        """Return the k best-matching songs, highest score first."""
+        prefs = asdict(user)
+        ranked = sorted(self.songs, key=lambda song: score_song(prefs, asdict(song))[0],
+                        reverse=True)
+        return ranked[:k]
 
     def explain_recommendation(self, user: UserProfile, song: Song) -> str:
-        # TODO: Implement explanation logic
-        return "Explanation placeholder"
+        """Return the reasons this song scored the way it did for this user."""
+        score, reasons = score_song(asdict(user), asdict(song))
+        return f"Score {score:.2f} / {MAX_SCORE:.2f}: " + ", ".join(reasons)
 
 def load_songs(csv_path: str) -> List[Dict]:
     """Read songs from a CSV file into a list of dicts, converting number columns to int/float."""

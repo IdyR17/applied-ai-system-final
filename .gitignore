@@ -17,3 +17,6 @@ venv/
 # Secrets and logs
 .env
 logs/*.log
+
+# Local AI assistant settings
+.claude/

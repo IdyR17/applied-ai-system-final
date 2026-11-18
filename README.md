@@ -44,7 +44,7 @@ flowchart TD
     RB --> OUT
 
     LOG[(logs/app.log)] -.- G1 & G2 & G3 & KW
-    T[pytest: 29 unit tests<br/>eval_harness.py: 8 cases] -. tests .- G1 & G2 & G3 & RET & KW
+    T[pytest: 37 unit tests<br/>eval_harness.py: 8 cases] -. tests .- G1 & G2 & G3 & RET & KW
     H[Human review of<br/>logs/eval_results.txt] -.- T
 ```
 
@@ -279,12 +279,12 @@ INFO run_end status=ok mode=fallback
 
 ## Testing Summary
 
-**Unit tests:** 29 tests (27 new + 2 from Module 3) in `tests/`. They mock the AI, so they never call the API. They cover all three guardrails, the retry, the fallback when the AI fails, the grounding check removing an invented song, and blocked input never reaching the AI.
+**Unit tests:** 37 tests (35 new + 2 from Module 3) in `tests/`. They mock the AI, so they never call the API. They cover all three guardrails, the retry, the fallback when the AI fails, the grounding check removing an invented song, blocked input never reaching the AI, and the retriever's scoring and ranking.
 
 ```
 $ pytest
-.............................                                            [100%]
-29 passed in 1.11s
+.....................................                                    [100%]
+37 passed in 0.04s
 ```
 
 **Evaluation:** `eval_harness.py` runs the real system on 8 preset requests and checks that the AI's genre/mood are reasonable, every recommended song was retrieved, and bad inputs are blocked. Full table in [`logs/eval_results.txt`](logs/eval_results.txt) and in the model card.

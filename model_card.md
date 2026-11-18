@@ -79,7 +79,7 @@ My system has a "loud song" bubble. Gym Hero, Fiesta de Noche, and Storm Runner 
 
 ## 7. Evaluation  
 
-**How I tested:** I made 7 user profiles: 3 normal ones and 4 tricky ones. I ran `python -m src.main` to get the top 5 for each, checked if the results felt right, and compared profiles side by side. I also ran one experiment where I changed the weights (see "Experiments You Tried" in the README).
+**How I tested:** I made 7 user profiles: 3 normal ones and 4 tricky ones. I ran `python -m src.main` to get the top 5 for each, checked if the results felt right, and compared profiles side by side. I also ran one experiment where I changed the weights (see "Weight experiment" below).
 
 **Profiles I tested:**
 
@@ -384,6 +384,23 @@ Gym Hero also shows up for the rock fan and the sad + high energy profile. It's 
 - **Genre doesn't always win.** For the calm metal fan, a song that fits 3 things beat a song that only fits the genre. That's what I wanted.
 - **Changing the weights made things different, not better.** When I doubled energy and halved genre, the sad listener lost the only sad song from their list completely.
 
+### Weight experiment: half the genre, double the energy
+
+**What I changed:** Genre went from 2.0 to 1.0 points, and energy went from 1.5 to 3.0 points. The max score went from 5.0 to 5.5.
+
+**Did the math still work?** Yes. Every score stayed between 0 and 5.5, and the reasons for each song still added up to its score.
+
+**What happened:** 5 of my 7 profiles kept the same top 5. Only 2 changed:
+
+| Profile | Before | After |
+|---|---|---|
+| Sad + high energy | #1 was Empty Platform, the only blues/sad song | Empty Platform dropped out of the top 5. All 5 songs were just loud songs |
+| Calm acoustic metal fan | #2 was Iron Requiem, a loud metal song | Iron Requiem dropped out. All 5 were calm, acoustic songs |
+
+For High-Energy Pop, Rooftop Lights (happy "indie pop") got much closer to Gym Hero, from 1.05 points behind to only 0.09 behind.
+
+**More accurate or just different?** Just different. The metal fan's list got better, but the sad listener lost the only sad song. With energy worth so much, the system mostly ranks by loudness. It still put a dark rock song in the happy pop fan's top 5. So I went back to genre 2.0 and energy 1.5.
+
 ---
 
 ## 8. Future Work  
@@ -463,7 +480,7 @@ From `python eval_harness.py` (saved in `logs/eval_results.txt`). Each case chec
 
 **7/8 passed.** The only failure is the missing-genre case explained above. I decided not to fix it before submitting, so the eval shows the real behavior. A possible fix is letting the AI answer "none" for genre, so the scorer ignores genre when the user didn't ask for one.
 
-I also have 29 unit tests that run without the API. All of them pass.
+I also have 37 unit tests that run without the API. All of them pass.
 
 ---
 
