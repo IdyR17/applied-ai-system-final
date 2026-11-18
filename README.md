@@ -309,6 +309,14 @@ Building this showed me that the most useful place for AI in a system is often n
 
 ---
 
+## What This Project Says About Me as an AI Engineer
+
+I build AI features that can be checked, not just demoed. In this project I kept the decision-making in code I could test (my Module 3 scorer) and used the AI where language matters: understanding a request and explaining the results. Around it I put guardrails that fail honestly, with friendly rejections, a labeled fallback mode and a log of every run. I also measured the system instead of trusting it. I wrote expected answers before running the eval, reported the case it failed instead of hiding it, and tested my own guardrails until I found what still gets through. I care about AI systems that are useful, explainable and honest about their limits.
+
+**GitHub:** https://github.com/IdyR17/applied-ai-system-final
+
+---
+
 ## Loom Walkthrough
 
 *(Optional, not yet recorded.)*
