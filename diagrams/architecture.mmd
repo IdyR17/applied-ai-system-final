@@ -1,0 +1,22 @@
+flowchart TD
+    U[User request<br/>python -m src.main] --> G1{Input guardrail<br/>empty / over 300 chars /<br/>off-topic / prompt injection}
+    G1 -- rejected --> R1[Friendly error message]
+    G1 -- ok --> P[AI: parse request into profile<br/>genre + mood chosen from songs.csv values]
+    P --> G2{Profile check<br/>valid JSON, genre/mood in catalog,<br/>energy clamped 0-1}
+    G2 -- invalid --> RETRY[Retry parse once]
+    RETRY --> G2
+    G2 -- invalid twice --> KW[Fallback: keyword parser<br/>builds profile without AI]
+    P -- API error / no key --> KW
+    G2 -- valid --> RET[Retriever: recommend_songs<br/>Module 3 scorer, top 5]
+    KW --> RET
+    DB[(data/songs.csv<br/>20 songs)] --> RET
+    RET -- AI mode --> GEN[AI: write picks from<br/>retrieved songs only]
+    RET -- fallback mode --> RB[Rule-based text<br/>from scorer reasons]
+    GEN -- API error --> RB
+    GEN --> G3{Grounding check<br/>remove songs not retrieved}
+    G3 --> OUT[Recommendations shown to user]
+    RB --> OUT
+
+    LOG[(logs/app.log)] -.- G1 & G2 & G3 & KW
+    T[pytest: 29 unit tests<br/>eval_harness.py: 8 cases] -. tests .- G1 & G2 & G3 & RET & KW
+    H[Human review of<br/>logs/eval_results.txt] -.- T
